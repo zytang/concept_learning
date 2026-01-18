@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_PRISMA_URL") // Uses Vercel Postgres connection URL
+  directUrl = env("POSTGRES_URL_NON_POOLING") // Uses Vercel Postgres direct URL
+}
+
+
+model User {
+  id        String   @id // Clerk ID
+  email     String   @unique
+  createdAt DateTime @default(now())
+  
+  concepts  Concept[]
+  activity  ActivityLog[]
+}
+
+model Concept {
+  id               String   @id @default(uuid())
+  userId           String
+  term             String
+  definition       String   @db.Text
+  explanation      String   @db.Text
+  realWorldExample String   @db.Text
+  masteryLevel     Int      @default(0) // 0-5
+  nextReviewDate   DateTime @default(now())
+  createdAt        DateTime @default(now())
+
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quizzes          Quiz[]
+  deepDive         DeepDive?
+  
+  @@index([userId])
+}
+
+model DeepDive {
+  id              String   @id @default(uuid())
+  conceptId       String   @unique
+  miniCase        String   @db.Text
+  pitfalls        String   @db.Text
+  relatedConcepts String   @db.Text
+  
+  concept         Concept  @relation(fields: [conceptId], references: [id], onDelete: Cascade)
+}
+
+model Quiz {
+  id            String   @id @default(uuid())
+  conceptId     String
+  question      String   @db.Text
+  options       String   @db.Text // JSON-encoded array of strings
+  correctAnswer String   @db.Text
+  
+  concept       Concept  @relation(fields: [conceptId], references: [id], onDelete: Cascade)
+}
+
+model ActivityLog {
+  id        String   @id @default(uuid())
+  userId    String
+  action    String   // "REVIEW_QUIZ", "READ_DEEP_DIVE", etc.
+  details   String?
+  createdAt DateTime @default(now())
+
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
