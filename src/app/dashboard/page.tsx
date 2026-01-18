@@ -12,16 +12,26 @@ export default async function DashboardPage() {
     if (!user) return null;
 
     // Fetch counts
-    const conceptCount = await db.concept.count({
-        where: { userId: user.id },
-    });
+    // Fetch counts with error handling for debugging Vercel deployment
+    let conceptCount = 0;
+    let masteredCount = 0;
+    let dbError = null;
 
-    const masteredCount = await db.concept.count({
-        where: {
-            userId: user.id,
-            masteryLevel: { gte: 4 }
-        },
-    });
+    try {
+        conceptCount = await db.concept.count({
+            where: { userId: user.id },
+        });
+
+        masteredCount = await db.concept.count({
+            where: {
+                userId: user.id,
+                masteryLevel: { gte: 4 }
+            },
+        });
+    } catch (e: any) {
+        console.error("Database Connection Error:", e);
+        dbError = e.message || "Database connection failed";
+    }
 
     return (
         <div className="space-y-8">
@@ -38,6 +48,12 @@ export default async function DashboardPage() {
                     {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
                 </div>
             </div>
+
+            {dbError && (
+                <div className="bg-red-50 text-red-600 p-4 rounded-lg border border-red-200 mb-4">
+                    <strong>System Error:</strong> {dbError}. Please check Vercel Storage connection.
+                </div>
+            )}
 
             <div className="grid gap-4 md:grid-cols-12 md:grid-rows-2">
                 {/* Total Concepts - Large Card */}
