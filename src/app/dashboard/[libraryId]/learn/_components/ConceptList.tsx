@@ -13,9 +13,10 @@ type ConceptWithRelations = Concept & {
 
 interface ConceptListProps {
     initialConcepts: ConceptWithRelations[];
+    readOnly?: boolean;
 }
 
-export function ConceptList({ initialConcepts }: ConceptListProps) {
+export function ConceptList({ initialConcepts, readOnly = false }: ConceptListProps) {
     const [searchTerm, setSearchTerm] = useState("");
     const [concepts, setConcepts] = useState(initialConcepts);
 
@@ -41,10 +42,13 @@ export function ConceptList({ initialConcepts }: ConceptListProps) {
                     <StudyInterface
                         key={concept.id}
                         concept={concept}
+                        readOnly={readOnly}
                         onUpdate={(updated) => {
+                            if (readOnly) return;
                             setConcepts(prev => prev.map(p => p.id === updated.id ? { ...p, ...updated } : p));
                         }}
                         onDelete={(id) => {
+                            if (readOnly) return;
                             setConcepts(prev => prev.filter(p => p.id !== id));
                         }}
                     />

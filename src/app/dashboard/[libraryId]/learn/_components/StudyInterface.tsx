@@ -23,9 +23,10 @@ interface StudyInterfaceProps {
     };
     onUpdate: (concept: any) => void;
     onDelete: (id: string) => void;
+    readOnly?: boolean;
 }
 
-export function StudyInterface({ concept, onUpdate, onDelete }: StudyInterfaceProps) {
+export function StudyInterface({ concept, onUpdate, onDelete, readOnly = false }: StudyInterfaceProps) {
     const [isQuizOpen, setIsQuizOpen] = useState(false);
     const [quizSelected, setQuizSelected] = useState<string | null>(null);
     const [showAnswer, setShowAnswer] = useState(false);
@@ -107,12 +108,16 @@ export function StudyInterface({ concept, onUpdate, onDelete }: StudyInterfacePr
                     <Badge variant={concept.masteryLevel >= 5 ? "default" : "secondary"}>
                         Lvl {concept.masteryLevel}
                     </Badge>
-                    <Button variant="ghost" size="icon" onClick={() => setIsEditing(true)}>
-                        <Edit className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon" className="hover:text-red-500" onClick={handleDelete}>
-                        <Trash2 className="h-4 w-4" />
-                    </Button>
+                    {!readOnly && (
+                        <>
+                            <Button variant="ghost" size="icon" onClick={() => setIsEditing(true)}>
+                                <Edit className="h-4 w-4" />
+                            </Button>
+                            <Button variant="ghost" size="icon" className="hover:text-red-500" onClick={handleDelete}>
+                                <Trash2 className="h-4 w-4" />
+                            </Button>
+                        </>
+                    )}
                 </div>
             </CardHeader>
             <CardContent>

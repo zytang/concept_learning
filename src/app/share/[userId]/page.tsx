@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { ConceptList } from "../../dashboard/learn/_components/ConceptList";
+import { ConceptList } from "../../dashboard/[libraryId]/learn/_components/ConceptList";
 import { ConceptMap } from "@/components/ConceptMap";
 import { notFound } from "next/navigation";
 
