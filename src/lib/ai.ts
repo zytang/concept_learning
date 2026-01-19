@@ -28,7 +28,7 @@ export async function generateConceptContent(term: string): Promise<GeneratedCon
         console.log(`📡 Generating content for: "${term}" using model: gpt-4o-mini`);
 
         const prompt = `
-      Create comprehensive active learning content for the MIS (Management Information Systems) concept: "${term}".
+      Create comprehensive active learning content for the concept: "${term}".
       Target audience: College students.
       Return ONLY a JSON object with the following fields:
       - definition: concise academic definition (1-2 sentences)
@@ -36,7 +36,7 @@ export async function generateConceptContent(term: string): Promise<GeneratedCon
       - realWorldExample: a concrete business scenario where this concept is applied
       - miniCase: a short 1-paragraph mini-case study description involving this concept
       - pitfalls: an array of strings listing common mistakes or misunderstandings
-      - relatedConcepts: an array of strings (3-5) of related MIS terms
+      - relatedConcepts: an array of strings (3-5) of related terms
       - quizQuestion: a scenario-based multiple choice question to test understanding (not just definition recall)
       - quizOptions: an array of 4 possible answers
       - quizCorrectAnswer: the exact string of the correct answer from options
@@ -44,7 +44,7 @@ export async function generateConceptContent(term: string): Promise<GeneratedCon
 
         const completion = await openai.chat.completions.create({
             messages: [
-                { role: "system", content: "You are an expert MIS professor. Output JSON only." },
+                { role: "system", content: "You are an expert professor. Output JSON only." },
                 { role: "user", content: prompt }
             ],
             model: "gpt-4o-mini",

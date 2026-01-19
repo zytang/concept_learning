@@ -43,7 +43,7 @@ export default async function LearnPage() {
             <div>
                 <h2 className="text-3xl font-bold tracking-tight">Study Mode</h2>
                 <div className="flex items-center gap-4">
-                    <p className="text-muted-foreground">Master your MIS concepts through active recall and application.</p>
+                    <p className="text-muted-foreground">Master your concepts through active recall and application.</p>
                     <div className="flex-1" />
                     <ShareButton userId={user.id} />
                 </div>

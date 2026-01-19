@@ -17,8 +17,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "MIS Active Learning Platform",
-  description: "Master MIS concepts through active learning",
+  title: "ActiveRecall - Master Complex Concepts",
+  description: "Master any subject through active recall, deep dives, and interactive quizzes.",
 };
 
 export default function RootLayout({

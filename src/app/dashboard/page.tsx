@@ -41,7 +41,7 @@ export default async function DashboardPage() {
                         Hello, {user.firstName || "Scholar"}
                     </h2>
                     <p className="text-muted-foreground mt-2 text-lg">
-                        Ready to master some MIS concepts today?
+                        Ready to master some new concepts today?
                     </p>
                 </div>
                 <div className="text-sm text-muted-foreground font-medium bg-secondary/50 px-3 py-1 rounded-full w-fit">

@@ -13,10 +13,10 @@ export default async function Home() {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 text-center p-4">
       <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-        MIS Active Learning Platform
+        ActiveRecall
       </h1>
       <p className="text-lg text-muted-foreground max-w-xl mb-8">
-        Master detailed MIS concepts through active recall, deep dive case studies, and interactive quizzes.
+        Master any subject through active recall, deep dive case studies, and interactive quizzes.
       </p>
 
       <div className="flex gap-4">

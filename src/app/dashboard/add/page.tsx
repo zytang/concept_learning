@@ -70,7 +70,7 @@ export default function AddConceptsPage() {
             <div>
                 <h2 className="text-3xl font-bold tracking-tight">Add New Concepts</h2>
                 <p className="text-muted-foreground">
-                    Enter a list of MIS terms you want to master. We'll generate definitions, quizzes, and deep dives for you.
+                    Enter a list of terms you want to master. We'll generate definitions, quizzes, and deep dives for you.
                 </p>
             </div>
 

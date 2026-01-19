@@ -13,7 +13,7 @@ export default function DashboardLayout({
             <aside className="w-64 border-r hidden md:flex flex-col bg-white/80 backdrop-blur-md sticky top-0 h-screen z-10">
                 <div className="p-6 border-b border-border/50">
                     <h1 className="text-2xl font-heading font-black tracking-tighter bg-gradient-to-br from-primary to-violet-600 bg-clip-text text-transparent">
-                        MIS Master
+                        ActiveRecall
                     </h1>
                 </div>
 
@@ -52,7 +52,7 @@ export default function DashboardLayout({
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
                 <header className="bg-white border-b px-8 py-4 flex items-center justify-between md:hidden">
-                    <span className="font-bold text-gray-800">MIS Master</span>
+                    <span className="font-bold text-gray-800">ActiveRecall</span>
                     <UserButton afterSignOutUrl="/" />
                 </header>
                 <div className="p-8 max-w-7xl mx-auto">
