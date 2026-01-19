@@ -88,6 +88,11 @@ export function StudyInterface({ concept, readOnly }: StudyInterfaceProps) {
                         <span className={`text-xs px-2 py-1 rounded-full font-medium ${masteryColor}`}>
                             Lvl {concept.masteryLevel}
                         </span>
+                        {new Date(concept.nextReviewDate) <= new Date() && (
+                            <span className="text-xs px-2 py-1 rounded-full font-medium bg-amber-100 text-amber-800 flex items-center gap-1">
+                                <Zap size={12} fill="currentColor" /> Due
+                            </span>
+                        )}
 
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
