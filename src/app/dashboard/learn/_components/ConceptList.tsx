@@ -24,12 +24,12 @@ export function ConceptList({ initialConcepts, readOnly }: ConceptListProps) {
 
     return (
         <div className="space-y-6">
-            <div className="relative">
-                <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+            <div className="relative max-w-lg mx-auto mb-8">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
                 <Input
                     type="search"
                     placeholder="Search concepts..."
-                    className="pl-8 max-w-sm"
+                    className="pl-12 py-6 text-lg shadow-md border-primary/20 focus-visible:ring-primary/30 rounded-full bg-white transition-all hover:shadow-lg hover:border-primary/40"
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                 />
