@@ -35,6 +35,15 @@ export function StudyInterface({ concept, readOnly }: StudyInterfaceProps) {
     // Edit Form State
     const [editTerm, setEditTerm] = useState(concept.term);
     const [editDefinition, setEditDefinition] = useState(concept.definition);
+    const [editRelatedConcepts, setEditRelatedConcepts] = useState(() => {
+        if (!concept.deepDive) return "";
+        try {
+            const parsed = JSON.parse(concept.deepDive.relatedConcepts) as string[];
+            return parsed.join(", ");
+        } catch {
+            return "";
+        }
+    });
 
     const handleDelete = async () => {
         setIsPending(true);
@@ -52,10 +61,20 @@ export function StudyInterface({ concept, readOnly }: StudyInterfaceProps) {
     const handleUpdate = async () => {
         setIsPending(true);
         try {
-            await updateConceptAction(concept.id, { term: editTerm, definition: editDefinition });
+            const relatedArray = editRelatedConcepts
+                .split(",")
+                .map(s => s.trim())
+                .filter(s => s.length > 0);
+
+            await updateConceptAction(concept.id, {
+                term: editTerm,
+                definition: editDefinition,
+                relatedConcepts: relatedArray
+            });
             toast.success("Concept updated");
             setShowEditDialog(false);
         } catch (e) {
+            console.error(e);
             toast.error("Failed to update concept");
         } finally {
             setIsPending(false);
@@ -225,6 +244,15 @@ export function StudyInterface({ concept, readOnly }: StudyInterfaceProps) {
                         <div className="space-y-2">
                             <Label>Definition</Label>
                             <Textarea value={editDefinition} onChange={(e) => setEditDefinition(e.target.value)} className="min-h-[100px]" />
+                        </div>
+                        <div className="space-y-2">
+                            <Label>Related Concepts (comma separated)</Label>
+                            <Input
+                                value={editRelatedConcepts}
+                                onChange={(e) => setEditRelatedConcepts(e.target.value)}
+                                placeholder="e.g. Logistics, Inventory, Procurement"
+                            />
+                            <p className="text-xs text-muted-foreground">These create the connections in your Knowledge Map.</p>
                         </div>
                         <Button onClick={handleUpdate} className="w-full" disabled={isPending}>
                             {isPending ? "Saving..." : "Save Changes"}

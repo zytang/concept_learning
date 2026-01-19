@@ -18,7 +18,7 @@ export async function deleteConceptAction(id: string) {
     revalidatePath("/dashboard/learn");
 }
 
-export async function updateConceptAction(id: string, data: { term?: string; definition?: string }) {
+export async function updateConceptAction(id: string, data: { term?: string; definition?: string; relatedConcepts?: string[] }) {
     const { userId } = await auth();
     if (!userId) throw new Error("Unauthorized");
 
@@ -30,6 +30,11 @@ export async function updateConceptAction(id: string, data: { term?: string; def
         data: {
             term: data.term,
             definition: data.definition,
+            deepDive: data.relatedConcepts ? {
+                update: {
+                    relatedConcepts: JSON.stringify(data.relatedConcepts),
+                }
+            } : undefined,
         },
     });
 
