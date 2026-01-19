@@ -10,7 +10,7 @@ import { Quiz } from "@/components/Quiz";
 import { DeepDive } from "@/components/DeepDive";
 import { updateMasteryAction } from "@/actions/update-progress";
 import { toast } from "sonner";
-import { Brain, BookOpen, HelpCircle, MoreVertical, Trash2, Edit } from "lucide-react";
+import { Brain, BookOpen, HelpCircle, MoreVertical, Trash2, Edit, Zap } from "lucide-react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Input } from "@/components/ui/input";
