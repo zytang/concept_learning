@@ -2,6 +2,7 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { LayoutDashboard, PlusCircle, BookOpen, BarChart3, GraduationCap } from "lucide-react";
 import { Logo } from "@/components/Logo";
+import { MobileNav } from "@/components/MobileNav";
 
 export default function DashboardLayout({
     children,
@@ -57,8 +58,11 @@ export default function DashboardLayout({
 
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
-                <header className="bg-white border-b px-8 py-4 flex items-center justify-between md:hidden">
-                    <Logo />
+                <header className="bg-white border-b px-4 py-3 flex items-center justify-between md:hidden sticky top-0 z-20">
+                    <div className="flex items-center gap-3">
+                        <MobileNav />
+                        <Logo />
+                    </div>
                     <UserButton afterSignOutUrl="/" />
                 </header>
                 <div className="p-8 max-w-7xl mx-auto">
