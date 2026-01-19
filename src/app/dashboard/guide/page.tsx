@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Brain, Zap, Share2, PlusCircle, LayoutDashboard, Search } from "lucide-react";
+import { Brain, Zap, Share2, PlusCircle, LayoutDashboard, Search, Target } from "lucide-react";
 
 export default function GuidePage() {
     return (
@@ -91,17 +91,46 @@ export default function GuidePage() {
                         </CardContent>
                     </Card>
 
-                    <Card>
+                    <Card className="md:col-span-2">
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Search className="text-emerald-500" size={20} /> 3. Active Practice
+                                <Target className="text-emerald-500" size={20} /> 3. Mastery & Spaced Repetition
+                            </CardTitle>
+                        </CardHeader>
+                        <CardContent className="text-sm text-muted-foreground space-y-4">
+                            <div>
+                                <h4 className="font-bold text-foreground mb-1">Mastery Levels (0-5)</h4>
+                                <ul className="list-disc list-inside pl-2 space-y-1">
+                                    <li><strong>Level 0</strong>: New Concept.</li>
+                                    <li><strong>Level 5</strong>: Mastered (Verified knowledge).</li>
+                                    <li><strong>Action</strong>: Correct quiz answers increase level (+1), incorrect answers decrease it (-1).</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold text-foreground mb-1">Due for Review</h4>
+                                <p>We use smart scheduling to show you concepts just before you forget them:</p>
+                                <div className="grid grid-cols-5 gap-2 mt-2 text-center text-xs">
+                                    <div className="bg-secondary p-1 rounded">Lvl 1<br />1 Day</div>
+                                    <div className="bg-secondary p-1 rounded">Lvl 2<br />2 Days</div>
+                                    <div className="bg-secondary p-1 rounded">Lvl 3<br />4 Days</div>
+                                    <div className="bg-secondary p-1 rounded">Lvl 4<br />8 Days</div>
+                                    <div className="bg-secondary p-1 rounded">Lvl 5<br />16 Days</div>
+                                </div>
+                            </div>
+                        </CardContent>
+                    </Card>
+
+                    <Card className="md:col-span-2">
+                        <CardHeader>
+                            <CardTitle className="flex items-center gap-2">
+                                <Search className="text-blue-500" size={20} /> 4. Active Practice Modes
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="text-sm text-muted-foreground space-y-2">
                             <p>Click on any concept card to access three modes:</p>
                             <ul className="space-y-1">
                                 <li><strong>Review</strong>: Traditional flashcard.</li>
-                                <li><strong>Quiz</strong>: Scenario-based question (+1 Mastery for correct).</li>
+                                <li><strong>Quiz</strong>: Scenario-based question. (+1 Mastery for correct).</li>
                                 <li><strong>Deep Dive</strong>: Mini-cases and common pitfalls.</li>
                             </ul>
                         </CardContent>

@@ -15,6 +15,7 @@ export default async function DashboardPage() {
     // Fetch counts with error handling for debugging Vercel deployment
     let conceptCount = 0;
     let masteredCount = 0;
+    let dueCount = 0;
     let dbError = null;
 
     try {
@@ -25,8 +26,16 @@ export default async function DashboardPage() {
         masteredCount = await db.concept.count({
             where: {
                 userId: user.id,
-                masteryLevel: { gte: 4 }
+                masteryLevel: { gte: 5 }
             },
+        });
+
+        const now = new Date();
+        dueCount = await db.concept.count({
+            where: {
+                userId: user.id,
+                nextReviewDate: { lte: now }
+            }
         });
     } catch (e: any) {
         console.error("Database Connection Error:", e);
@@ -112,8 +121,10 @@ export default async function DashboardPage() {
                         <Zap className="h-4 w-4 text-amber-500" />
                     </CardHeader>
                     <CardContent>
-                        <div className="text-3xl font-bold text-foreground">0</div>
-                        <p className="text-xs text-muted-foreground mt-1">You're all caught up!</p>
+                        <div className="text-3xl font-bold text-foreground">{dueCount}</div>
+                        <p className="text-xs text-muted-foreground mt-1">
+                            {dueCount === 0 ? "You're all caught up!" : "Concepts need attention"}
+                        </p>
                     </CardContent>
                 </Card>
 
