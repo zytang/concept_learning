@@ -3,6 +3,7 @@ import Link from "next/link";
 import { LayoutDashboard, PlusCircle, BookOpen, BarChart3, GraduationCap } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { MobileNav } from "@/components/MobileNav";
+import { SidebarNav } from "./_components/SidebarNav";
 
 export default function DashboardLayout({
     children,
@@ -17,36 +18,7 @@ export default function DashboardLayout({
                     <Logo />
                 </div>
 
-                <nav className="flex-1 p-4 space-y-2 mt-2">
-                    <Link
-                        href="/dashboard"
-                        className="flex items-center gap-3 px-4 py-3 text-muted-foreground font-medium hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-200 group"
-                    >
-                        <LayoutDashboard size={20} className="group-hover:scale-110 transition-transform" />
-                        Overview
-                    </Link>
-                    <Link
-                        href="/dashboard/add"
-                        className="flex items-center gap-3 px-4 py-3 text-muted-foreground font-medium hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-200 group"
-                    >
-                        <PlusCircle size={20} className="group-hover:scale-110 transition-transform" />
-                        Add Concepts
-                    </Link>
-                    <Link
-                        href="/dashboard/learn"
-                        className="flex items-center gap-3 px-4 py-3 text-muted-foreground font-medium hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-200 group"
-                    >
-                        <GraduationCap size={20} className="group-hover:scale-110 transition-transform" />
-                        Study Mode
-                    </Link>
-                    <Link
-                        href="/dashboard/guide"
-                        className="flex items-center gap-3 px-4 py-3 text-muted-foreground font-medium hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-200 group"
-                    >
-                        <BookOpen size={20} className="group-hover:scale-110 transition-transform" />
-                        User Guide
-                    </Link>
-                </nav>
+                <SidebarNav />
 
                 <div className="p-4 border-t">
                     <div className="flex items-center gap-3 px-4">

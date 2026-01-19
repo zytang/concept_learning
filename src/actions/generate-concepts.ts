@@ -5,13 +5,10 @@ import { db } from "@/lib/db";
 import { generateConceptContent } from "@/lib/ai";
 import { revalidatePath } from "next/cache";
 
-export async function generateConceptsAction(terms: string[]) {
-    console.log("🚀 Server Action: generateConceptsAction started", { terms });
+export async function generateConceptsAction(terms: string[], libraryId: string) {
+    console.log("🚀 Server Action: generateConceptsAction started", { terms, libraryId });
 
-    const session = await auth();
-    console.log("👤 Auth Session:", session ? "Found" : "Missing", { userId: session?.userId });
-    const { userId } = session;
-
+    const { userId } = await auth();
     if (!userId) {
         console.error("❌ Authorization Failed: No userId found");
         throw new Error("Unauthorized: Please sign in again.");
@@ -34,6 +31,7 @@ export async function generateConceptsAction(terms: string[]) {
         const existing = await db.concept.findFirst({
             where: {
                 userId,
+                libraryId, // Added libraryId to check for existing concepts within the specific library
                 term: term,
             }
         });
@@ -42,40 +40,33 @@ export async function generateConceptsAction(terms: string[]) {
 
         const content = await generateConceptContent(term);
 
-        if (content) {
-            await db.$transaction(async (tx) => {
-                const concept = await tx.concept.create({
-                    data: {
-                        userId,
-                        term,
-                        definition: content.definition,
-                        explanation: content.explanation,
-                        realWorldExample: content.realWorldExample,
-                    }
-                });
-
-                // Create Deep Dive
-                await tx.deepDive.create({
-                    data: {
-                        conceptId: concept.id,
-                        miniCase: content.miniCase,
-                        pitfalls: JSON.stringify(content.pitfalls),
-                        relatedConcepts: JSON.stringify(content.relatedConcepts),
-                    },
-                });
-
-                // Create Quiz
-                await tx.quiz.create({
-                    data: {
-                        conceptId: concept.id,
+        // Even if content generation fails partially, we still want to create a concept
+        // with placeholder data so the user can edit it.
+        await db.concept.create({
+            data: {
+                userId,
+                libraryId,
+                term: content?.definition ? term : `${term} (Failed Generation)`,
+                definition: content?.definition || "Failed to generate content. Please edit manually.",
+                explanation: content?.explanation || "",
+                realWorldExample: content?.realWorldExample || "",
+                masteryLevel: 0, // Initialize mastery level
+                quizzes: content?.quizQuestion ? {
+                    create: {
                         question: content.quizQuestion,
                         options: JSON.stringify(content.quizOptions),
                         correctAnswer: content.quizCorrectAnswer,
                     },
-                });
-            });
-        }
+                } : undefined,
+                deepDive: content?.miniCase ? {
+                    create: {
+                        miniCase: content.miniCase,
+                        pitfalls: JSON.stringify(content.pitfalls),
+                        relatedConcepts: JSON.stringify(content.relatedConcepts),
+                    }
+                } : undefined
+            }
+        });
     }
-
     revalidatePath("/dashboard");
 }

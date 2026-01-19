@@ -5,15 +5,21 @@ import { PlusCircle, PlayCircle } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-export function QuickActions() {
+interface QuickActionsProps {
+    libraryId?: string;
+}
+
+export function QuickActions({ libraryId }: QuickActionsProps) {
     const router = useRouter();
+
+    const basePath = libraryId ? `/dashboard/${libraryId}` : "/dashboard";
 
     return (
         <div className="grid gap-4 md:grid-cols-2">
             <Button
                 variant="outline"
                 className="h-auto py-4 flex flex-col gap-2 hover:border-primary/50 hover:bg-primary/5 transition-all text-left items-start"
-                onClick={() => router.push("/dashboard/learn")}
+                onClick={() => router.push(`${basePath}/learn`)}
             >
                 <div className="flex items-center gap-2 font-semibold">
                     <PlayCircle className="text-primary h-5 w-5" />
@@ -27,7 +33,7 @@ export function QuickActions() {
             <Button
                 variant="outline"
                 className="h-auto py-4 flex flex-col gap-2 hover:border-primary/50 hover:bg-primary/5 transition-all text-left items-start"
-                onClick={() => router.push("/dashboard/add")}
+                onClick={() => router.push(`${basePath}/add`)}
             >
                 <div className="flex items-center gap-2 font-semibold">
                     <PlusCircle className="text-primary h-5 w-5" />

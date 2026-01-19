@@ -27,7 +27,11 @@ const formSchema = z.object({
     }),
 });
 
+import { useParams } from "next/navigation";
+
 export default function AddConceptsPage() {
+    const params = useParams();
+    const libraryId = params.libraryId as string;
     const [isGenerating, setIsGenerating] = useState(false);
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -49,7 +53,7 @@ export default function AddConceptsPage() {
                 return;
             }
 
-            await generateConceptsAction(terms);
+            await generateConceptsAction(terms, libraryId);
 
             toast.success("Success", {
                 description: `Generated content for ${terms.length} concepts.`,
