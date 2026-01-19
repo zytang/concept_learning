@@ -1,6 +1,7 @@
 import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { LayoutDashboard, PlusCircle, BookOpen, BarChart3 } from "lucide-react";
+import { LayoutDashboard, PlusCircle, BookOpen, BarChart3, GraduationCap } from "lucide-react";
+import { Logo } from "@/components/Logo";
 
 export default function DashboardLayout({
     children,
@@ -12,9 +13,7 @@ export default function DashboardLayout({
             {/* Sidebar */}
             <aside className="w-64 border-r hidden md:flex flex-col bg-white/80 backdrop-blur-md sticky top-0 h-screen z-10">
                 <div className="p-6 border-b border-border/50">
-                    <h1 className="text-2xl font-heading font-black tracking-tighter bg-gradient-to-br from-primary to-violet-600 bg-clip-text text-transparent">
-                        ActiveRecall
-                    </h1>
+                    <Logo />
                 </div>
 
                 <nav className="flex-1 p-4 space-y-2 mt-2">
@@ -36,8 +35,15 @@ export default function DashboardLayout({
                         href="/dashboard/learn"
                         className="flex items-center gap-3 px-4 py-3 text-muted-foreground font-medium hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-200 group"
                     >
-                        <BookOpen size={20} className="group-hover:scale-110 transition-transform" />
+                        <GraduationCap size={20} className="group-hover:scale-110 transition-transform" />
                         Study Mode
+                    </Link>
+                    <Link
+                        href="/dashboard/guide"
+                        className="flex items-center gap-3 px-4 py-3 text-muted-foreground font-medium hover:text-primary hover:bg-primary/5 rounded-xl transition-all duration-200 group"
+                    >
+                        <BookOpen size={20} className="group-hover:scale-110 transition-transform" />
+                        User Guide
                     </Link>
                 </nav>
 
@@ -52,7 +58,7 @@ export default function DashboardLayout({
             {/* Main Content */}
             <main className="flex-1 overflow-y-auto">
                 <header className="bg-white border-b px-8 py-4 flex items-center justify-between md:hidden">
-                    <span className="font-bold text-gray-800">ActiveRecall</span>
+                    <Logo />
                     <UserButton afterSignOutUrl="/" />
                 </header>
                 <div className="p-8 max-w-7xl mx-auto">
