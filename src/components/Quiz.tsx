@@ -51,13 +51,13 @@ export function Quiz({ question, options, correctAnswer, onComplete }: QuizProps
     };
 
     return (
-        <Card className="w-full max-w-2xl mx-auto mt-8">
-            <CardHeader>
+        <Card className="w-full border-0 shadow-none">
+            <CardHeader className="px-0 pt-0">
                 <CardTitle className="text-xl font-semibold leading-relaxed">
                     {question}
                 </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-4 px-0">
                 {options.map((option, idx) => (
                     <div
                         key={idx}
@@ -67,21 +67,21 @@ export function Quiz({ question, options, correctAnswer, onComplete }: QuizProps
                             getOptionStyle(option)
                         )}
                     >
-                        <span className="font-medium">{option}</span>
+                        <span className="font-medium flex-1 mr-3 text-sm md:text-base">{option}</span>
                         {submitted && option === correctAnswer && (
-                            <CheckCircle2 className="text-green-600 h-5 w-5" />
+                            <CheckCircle2 className="text-green-600 h-5 w-5 flex-shrink-0" />
                         )}
                         {submitted && selected === option && selected !== correctAnswer && (
-                            <XCircle className="text-red-600 h-5 w-5" />
+                            <XCircle className="text-red-600 h-5 w-5 flex-shrink-0" />
                         )}
                     </div>
                 ))}
             </CardContent>
-            <CardFooter className="justify-end pt-4">
+            <CardFooter className="justify-end pt-4 px-0">
                 <Button
                     onClick={handleSubmit}
                     disabled={!selected || submitted}
-                    className="w-full sm:w-auto min-w-[120px]"
+                    className="w-full"
                 >
                     {submitted ? (
                         selected === correctAnswer ? "Correct!" : "Incorrect"
