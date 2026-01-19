@@ -139,7 +139,7 @@ export default function GuidePage() {
                     <Card>
                         <CardHeader>
                             <CardTitle className="flex items-center gap-2">
-                                <Share2 className="text-pink-500" size={20} /> 4. Share & Collaborate
+                                <Share2 className="text-pink-500" size={20} /> 5. Share & Collaborate
                             </CardTitle>
                         </CardHeader>
                         <CardContent className="text-sm text-muted-foreground space-y-2">
