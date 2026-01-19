@@ -121,7 +121,7 @@ export function StudyInterface({ concept, readOnly }: StudyInterfaceProps) {
                             Review
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-xl">
+                    <DialogContent className="sm:max-w-xl max-h-[85vh] overflow-y-auto">
                         <DialogHeader>
                             <DialogTitle>Flashcard: {concept.term}</DialogTitle>
                         </DialogHeader>
@@ -142,7 +142,7 @@ export function StudyInterface({ concept, readOnly }: StudyInterfaceProps) {
                             Quiz
                         </Button>
                     </DialogTrigger>
-                    <DialogContent className="sm:max-w-xl">
+                    <DialogContent className="sm:max-w-xl max-h-[85vh] overflow-y-auto">
                         <DialogHeader>
                             <DialogTitle>Quiz: {concept.term}</DialogTitle>
                         </DialogHeader>
