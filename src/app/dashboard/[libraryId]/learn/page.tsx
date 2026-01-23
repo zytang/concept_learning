@@ -57,7 +57,7 @@ export default async function LearnPage({ params }: PageProps) {
                     <div className="flex-1" />
                     <div className="flex items-center gap-2">
                         <LibraryManager libraryId={libraryId} libraryName={library.name} />
-                        <ShareButton userId={user.id} />
+                        <ShareButton userId={user.id} libraryId={libraryId} />
                     </div>
                 </div>
             </div>

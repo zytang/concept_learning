@@ -6,9 +6,10 @@ import { toast } from "sonner";
 
 interface ShareButtonProps {
     userId: string;
+    libraryId?: string;
 }
 
-export function ShareButton({ userId }: ShareButtonProps) {
+export function ShareButton({ userId, libraryId }: ShareButtonProps) {
     const handleShare = () => {
         // Construct public URL (assuming public share page exists at /share/[userId])
         // If we want library specific share, we'll need to update this later.
@@ -16,8 +17,11 @@ export function ShareButton({ userId }: ShareButtonProps) {
         // or we just copy the current URL if the page is public.
         // Assuming /share/[userId] is the portfolio.
 
-        const url = `${window.location.origin}/share/${userId}`;
-        navigator.clipboard.writeText(url);
+        const url = new URL(`${window.location.origin}/share/${userId}`);
+        if (libraryId) {
+            url.searchParams.set("libraryId", libraryId);
+        }
+        navigator.clipboard.writeText(url.toString());
         toast.success("Share link copied to clipboard");
     };
 
