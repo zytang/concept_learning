@@ -95,7 +95,7 @@ export function ImportLibraryButton() {
         <Dialog open={open} onOpenChange={handleOpenChange}>
             <DialogTrigger asChild>
                 <Button variant="outline">
-                    <Upload className="mr-2 h-4 w-4" /> Import JSON
+                    <Upload className="mr-2 h-4 w-4" /> Import Library
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
